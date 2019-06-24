@@ -11,13 +11,13 @@
 				<div class="play-msg">
 					<h3>YOU</h3>
 					<div class="life">
-						<div class="progress-bar"></div>
+						<div class="progress-bar">{{ playerLife }}</div>
 					</div>
 				</div>
 				<div class="play-msg">
 					<h3>MONSTER</h3>
 					<div class="life">
-						<div class="progress-bar"></div>
+						<div class="progress-bar">{{ monsterLife }}</div>
 					</div>
 				</div>
 			</div>
@@ -42,7 +42,9 @@
 			el: '#app',
 			data: {
 				isStart : false,
-				test: []	
+				test: [],
+				playerLife: 100,
+				monsterLife: 100
 			},
 			methods: {
 				startGame : function(){
