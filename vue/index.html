@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+	<body>
+		<div id="app">
+			<div class="base-type">
+				<div class="play-msg">
+					<h3>YOU</h3>
+					<div class="life">
+						<div class="progress-bar"></div>
+					</div>
+				</div>
+				<div class="play-msg">
+					<h3>MONSTER</h3>
+					<div class="life">
+						<div class="progress-bar"></div>
+					</div>
+				</div>
+			</div>
+			<div v-if="isStart==false" class="btn">
+				<input type="button" value="START NEW GAME" @click="startGame()"/>
+			</div>
+			<div v-else class="btn">
+				<input type="button" value="ATTACK"/>
+				<input type="button" value="BIG ATTACK"/>
+				<input type="button" value="Treatment"/>
+				<input type="button" value="GIVE UP"/>
+			</div>
+			<div class="log">
+				<h5>PLAYER HITS MONSTER FOR 16</h5>
+				<h5>MONSTER HITS PLAYER FOR 18</h5>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				isStart : false,
+				test: []	
+			},
+			methods: {
+				startGame : function(){
+					this.isStart = true;
+				}
+			}
+		})
+	</script>
+</html>
