@@ -31,7 +31,7 @@
 				<input type="button" value="GIVE UP"/>
 			</div>
 			<div class="log" v-if="attackLogs.length != 0">
-				<h5 v-for="(attackLog,index) in attackLogs" :class="index%2==0?'playerAttackLog':'montherAttackLog'">{{ attackLog }}</h5>
+				<h5 v-for="(attackLog,index) in attackLogs" :class="index%2==0?'playerAttackLog':'montherAttackLog'">第{{ index + 1 }}回合 ：{{ attackLog }}</h5>
 			</div>
 		</div>
 	</body>
@@ -68,12 +68,28 @@
 					this.monsterStartLife -= PlayerAttackNum;
 					if(this.monsterStartLife<=0){
 						this.monsterStartLife = 0;
-						alert("YOU WIN");
+						if(confirm("YOU WIN, RESTART?")){
+							this.playerStartLife = 100;
+							this.monsterStartLife = 100;
+							this.isStart = false;
+							this.attackLogs = [];
+							return ;
+						}else{
+							this.isStart = true;
+						}
 					}
 					this.playerStartLife -= MontherAttackNum;
 					if(this.playerStartLife<=0){
 						this.playerStartLife = 0;
-						alert("YOU LOSS");
+						if(confirm("YOU LOSS,AGAIN?")){
+							this.playerStartLife = 100;
+							this.monsterStartLife = 100;
+							this.isStart = false;
+							this.attackLogs = [];
+							return ;
+						}else{
+							isStart = true;
+						}
 					}
 					this.attackLogs.push("PLAYER HITS MONTHER FOR "+PlayerAttackNum);
 					this.attackLogs.push("MONTHER HITS PLAYER FOR "+MontherAttackNum);
