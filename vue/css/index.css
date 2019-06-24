@@ -30,6 +30,9 @@
 	height: 60px;
 	background-color: red;
 }
+.right{
+	float: right;
+}
 .btn{
 	width: 70%;
 	height: 100px;
@@ -55,9 +58,15 @@
 	box-shadow: 2px 2px 2px #969696;
 	margin-top: 20px;
 }
-.log h5{
+.playerAttackLog{
 	width: 90%;
 	background-color: cornflowerblue;
 	margin: 0 auto;
-	margin-top: 3px;
+	margin-top: 5px;
+}
+.montherAttackLog{
+	width: 90%;
+	background-color: pink;
+	margin: 0 auto;
+	margin-top: 5px;
 }
