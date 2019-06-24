@@ -24,6 +24,7 @@
 	margin: 0 auto;
 	opacity: 0.3;
 	margin-top: 15px;
+	color: #FFFFFF;
 }
 .progress-bar{
 	width: 100%;
@@ -57,6 +58,7 @@
 	border: 1px solid #C0C0C0;
 	box-shadow: 2px 2px 2px #969696;
 	margin-top: 20px;
+	color: #FFFFFF;
 }
 .playerAttackLog{
 	width: 90%;
