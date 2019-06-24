@@ -25,12 +25,13 @@
 				<input type="button" value="START NEW GAME" @click="startGame()"/>
 			</div>
 			<div v-else class="btn">
-				<input type="button" value="ATTACK" @click="attack()"/>
-				<input type="button" value="BIG ATTACK"/>
-				<input type="button" value="Treatment"/>
-				<input type="button" value="GIVE UP"/>
+				<input type="button" value="ATTACK" @click="playerAttack(false)"/>
+				<input type="button" value="BIG ATTACK" @click="playerAttack(true)"/>
+				<input type="button" value="Treatment" @click="treatment()"/>
+				<input type="button" value="GIVE UP" @click="giveUp()"/>
 			</div>
 			<div class="log" v-if="attackLogs.length != 0">
+				<h3>Attack Logs</h3>
 				<h5 v-for="(attackLog,index) in attackLogs" :class="index%2==0?'playerAttackLog':'montherAttackLog'">第{{ index + 1 }}回合 ：{{ attackLog }}</h5>
 			</div>
 		</div>
@@ -61,38 +62,64 @@
 				startGame : function(){
 					this.isStart = true;
 				},
-				attack : function(){
-					var PlayerAttackNum = Math.floor(Math.random()*7+1);
-					var MontherAttackNum = Math.floor(Math.random()*8+1);
+				playerAttack : function(isBigAttack){
+					var PlayerAttackNum;
+					if(isBigAttack)
+						PlayerAttackNum = Math.floor(Math.random()*11+5);
+					else
+						PlayerAttackNum = Math.floor(Math.random()*7+1);
 //					console.log(attackNum);
 					this.monsterStartLife -= PlayerAttackNum;
+					this.attackLogs.push("PLAYER HITS MONTHER FOR "+PlayerAttackNum);
 					if(this.monsterStartLife<=0){
 						this.monsterStartLife = 0;
 						if(confirm("YOU WIN, RESTART?")){
-							this.playerStartLife = 100;
-							this.monsterStartLife = 100;
-							this.isStart = false;
-							this.attackLogs = [];
+							this.reset();
 							return ;
 						}else{
 							this.isStart = true;
 						}
 					}
+					this.monsterAttack();
+				},
+				monsterAttack: function(){
+					var MontherAttackNum = Math.floor(Math.random()*9+1);
 					this.playerStartLife -= MontherAttackNum;
+					this.attackLogs.push("MONTHER HITS PLAYER FOR "+MontherAttackNum);
 					if(this.playerStartLife<=0){
 						this.playerStartLife = 0;
 						if(confirm("YOU LOSS,AGAIN?")){
-							this.playerStartLife = 100;
-							this.monsterStartLife = 100;
-							this.isStart = false;
-							this.attackLogs = [];
+							this.reset();
 							return ;
 						}else{
 							isStart = true;
 						}
 					}
-					this.attackLogs.push("PLAYER HITS MONTHER FOR "+PlayerAttackNum);
-					this.attackLogs.push("MONTHER HITS PLAYER FOR "+MontherAttackNum);
+				},
+				treatment: function(){
+					var playerTreatmentNum = Math.floor(Math.random()*10+1);
+//					console.log(playerTreatmentNum);
+					if(100-this.playerStartLife > playerTreatmentNum){
+						this.playerStartLife += playerTreatmentNum;
+						this.attackLogs.push("PLAYER TREATMENT PLAYER FOR "+playerTreatmentNum);
+					}else if(this.playerStartLife==100){
+						this.attackLogs.push("PLAYER TREATMENT PLAYER FOR 0");
+					}else{
+						this.attackLogs.push("PLAYER TREATMENT PLAYER FOR "+(100-this.playerStartLife));
+						this.playerStartLife = 100;
+					}
+					this.monsterAttack();
+				},
+				giveUp: function(){
+					if(confirm("Are you sure to give up?")){
+						this.reset();
+					}
+				},
+				reset:function(){
+					this.playerStartLife = 100;
+					this.monsterStartLife = 100;
+					this.isStart = false;
+					this.attackLogs = [];
 				}
 			}
 		})

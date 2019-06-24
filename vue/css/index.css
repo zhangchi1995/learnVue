@@ -60,6 +60,10 @@
 	margin-top: 20px;
 	color: #FFFFFF;
 }
+.log h3{
+	color: #000000;
+	margin-bottom: 20px;
+}
 .playerAttackLog{
 	width: 90%;
 	background-color: cornflowerblue;
